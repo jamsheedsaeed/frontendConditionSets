@@ -39,7 +39,7 @@ const LoginForm: React.FC = () => {
         // localStorage.setItem('userId', response.data.user.id);
         // login(accessToken);
 
-        navigate('/projects'); // Redirect to projects page or wherever you want
+        navigate('/conditionSets'); // Redirect to projects page or wherever you want
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           // Handle error from API
