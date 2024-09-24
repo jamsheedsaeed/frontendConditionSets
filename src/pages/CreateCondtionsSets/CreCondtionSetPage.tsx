@@ -1,10 +1,10 @@
 import React from 'react';
-import CreateConditionSets from './CreateConditionSets';
+import OfferForm from './Offerform';
 
 const CreCondtionSetPage: React.FC = () => {
   return (
       <div >
-        <CreateConditionSets />
+        <OfferForm />
       </div>
   );
 };

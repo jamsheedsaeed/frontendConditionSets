@@ -11,14 +11,13 @@ import ConditionPage from './pages/ConditionSets/ConditionPage';
 import CreCondtionSetPage from './pages/CreateCondtionsSets/CreCondtionSetPage';
 
 const AppContent: React.FC = () => {
-  const { isAuthenticated } = useAuth();
 
   return (
     <div className="flex h-screen">
-      {isAuthenticated && <Sidebar />}
+     <Sidebar />
       <div className="flex-1 p-6">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<CreCondtionSetPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/conditionSets" element={<ConditionPage />} />
