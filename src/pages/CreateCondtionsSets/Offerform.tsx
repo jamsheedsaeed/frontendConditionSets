@@ -5,9 +5,11 @@ const OfferForm = () => {
   const [dropoffAddress, setDropoffAddress] = useState("");
   const [serviceClass, setServiceClass] = useState("business");
   const [responseMessage, setResponseMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // State for tracking the loading status
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault(); // Prevent default form submission
+    setIsLoading(true); // Set loading state to true before making the API call
 
     // Create request payload based on form values
     const payload = {
@@ -16,17 +18,23 @@ const OfferForm = () => {
       service_class: serviceClass,
     };
 
-    // Send the form data to Flask API
-    const response = await fetch("http://localhost:5000/accept_offer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload), // Send form data as JSON
-    });
+    try {
+      // Send the form data to Flask API
+      const response = await fetch("http://localhost:5000/accept_offer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload), // Send form data as JSON
+      });
 
-    const result = await response.json(); // Get API response
-    setResponseMessage(result.message); // Set response message from API
+      const result = await response.json(); // Get API response
+      setResponseMessage(result.message); // Set response message from API
+    } catch (error) {
+      setResponseMessage("Error: Failed to submit offer.");
+    } finally {
+      setIsLoading(false); // Set loading state back to false after the API call is complete
+    }
   };
 
   return (
@@ -69,14 +77,25 @@ const OfferForm = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition duration-300"
+          className={`w-full p-3 rounded-md transition duration-300 ${
+            isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
+          }`}
+          disabled={isLoading} // Disable button while loading
         >
-          Submit Offer
+          {isLoading ? "Processing..." : "Create Condition"}
         </button>
       </form>
 
+      {/* Display response message */}
       {responseMessage && (
         <p className="mt-4 text-center text-green-600 font-semibold">{responseMessage}</p>
+      )}
+
+      {/* Loading Spinner */}
+      {isLoading && (
+        <div className="flex justify-center mt-4">
+          <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-8 w-8"></div>
+        </div>
       )}
     </div>
   );

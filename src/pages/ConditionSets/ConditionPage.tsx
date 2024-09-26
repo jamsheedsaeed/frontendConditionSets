@@ -1,10 +1,10 @@
 import React from 'react';
-import ConditionSets from './ConditionSets';
+import AcceptedRidesTable from './AcceptedRidesTable';
 
 const ConditionPage: React.FC = () => {
   return (
       <div >
-        <ConditionSets />
+        <AcceptedRidesTable />
       </div>
   );
 };

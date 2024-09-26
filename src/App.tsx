@@ -1,17 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPages/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import Sidebar from "./components/Sidebar";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from 'react-toastify'; // Import ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Import default styles
 import ConditionPage from './pages/ConditionSets/ConditionPage';
 import CreCondtionSetPage from './pages/CreateCondtionsSets/CreCondtionSetPage';
 
 const AppContent: React.FC = () => {
-
   return (
     <div className="flex h-screen">
      <Sidebar />
