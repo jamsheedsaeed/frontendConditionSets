@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 
 const OfferForm = () => {
+  // State variables for form inputs
   const [pickupAddress, setPickupAddress] = useState("");
   const [dropoffAddress, setDropoffAddress] = useState("");
   const [serviceClass, setServiceClass] = useState("business");
-  const [responseMessage, setResponseMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // State for tracking the loading status
+  const [count, setCount] = useState(1); // New state for count
 
+  // State variables for handling API responses and loading
+  const [responseMessage, setResponseMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Function to handle form submission
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault(); // Prevent default form submission
     setIsLoading(true); // Set loading state to true before making the API call
@@ -16,6 +21,7 @@ const OfferForm = () => {
       pickup_address: pickupAddress,
       dropoff_address: dropoffAddress,
       service_class: serviceClass,
+      count: count // Include count in the payload
     };
 
     try {
@@ -41,6 +47,8 @@ const OfferForm = () => {
     <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Submit Offer for Acceptance</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
+        
+        {/* Pickup Address Input */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">Pickup Location (EN):</label>
           <input
@@ -52,6 +60,8 @@ const OfferForm = () => {
             placeholder="Enter pickup location"
           />
         </div>
+        
+        {/* Dropoff Address Input */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">Dropoff Location (EN):</label>
           <input
@@ -63,6 +73,8 @@ const OfferForm = () => {
             placeholder="Enter dropoff location"
           />
         </div>
+        
+        {/* Service Class Dropdown */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">Service Class:</label>
           <select
@@ -75,6 +87,22 @@ const OfferForm = () => {
             <option value="first_class">First Class</option>
           </select>
         </div>
+
+        {/* Count Input */}
+        <div>
+          <label className="block text-gray-700 font-medium mb-2">Count:</label>
+          <input
+            type="number"
+            value={count}
+            onChange={(e) => setCount(Math.max(1, Number(e.target.value)))}
+            required
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            min="1"
+            placeholder="Enter count"
+          />
+        </div>
+
+        {/* Submit Button */}
         <button
           type="submit"
           className={`w-full p-3 rounded-md transition duration-300 ${
@@ -88,7 +116,9 @@ const OfferForm = () => {
 
       {/* Display response message */}
       {responseMessage && (
-        <p className="mt-4 text-center text-green-600 font-semibold">{responseMessage}</p>
+        <p className={`mt-4 text-center font-semibold ${responseMessage.includes("Error") ? "text-red-600" : "text-green-600"}`}>
+          {responseMessage}
+        </p>
       )}
 
       {/* Loading Spinner */}
