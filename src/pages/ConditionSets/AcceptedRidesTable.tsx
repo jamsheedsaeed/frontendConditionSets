@@ -297,64 +297,59 @@ const AcceptedRidesTable: React.FC = () => {
       )}
 
       {/* Modal for Adding/Editing Conditions */}
-      <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Condition' : 'Add New Condition'}</h3>
-        <form onSubmit={handleFormSubmit}>
-          <div className="mb-4">
-            <label className="block mb-2">Service Class</label>
-            <input
-              type="text"
-              value={editCondition?.service_class || ''}
-              onChange={(e) => setEditCondition({ ...editCondition!, service_class: e.target.value })}
-              className="w-full border px-2 py-1 rounded"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Pickup Address</label>
-            <input
-              type="text"
-              value={editCondition?.pickup_address || ''}
-              onChange={(e) => setEditCondition({ ...editCondition!, pickup_address: e.target.value })}
-              className="w-full border px-2 py-1 rounded"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Dropoff Address</label>
-            <input
-              type="text"
-              value={editCondition?.dropoff_address || ''}
-              onChange={(e) => setEditCondition({ ...editCondition!, dropoff_address: e.target.value })}
-              className="w-full border px-2 py-1 rounded"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Status</label>
-            <input
-              type="text"
-              value={editCondition?.status || ''}
-              onChange={(e) => setEditCondition({ ...editCondition!, status: e.target.value })}
-              className="w-full border px-2 py-1 rounded"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Count</label>
-            <input
-              type="number"
-              value={editCondition?.count || 0}
-              onChange={(e) => setEditCondition({ ...editCondition!, count: parseInt(e.target.value) })}
-              className="w-full border px-2 py-1 rounded"
-              required
-            />
-          </div>
-          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            {isEditing ? 'Update Condition' : 'Add Condition'}
-          </button>
-        </form>
-      </Modal>
+   {/* Modal for Adding/Editing Conditions */}
+<Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
+  <h3 className="text-xl font-bold mb-4">{isEditing ? 'Edit Condition' : 'Add New Condition'}</h3>
+  <form onSubmit={handleFormSubmit}>
+    <div className="mb-4">
+      <label className="block mb-2">Service Class</label>
+      <select
+        value={editCondition?.service_class || ''}
+        onChange={(e) => setEditCondition({ ...editCondition!, service_class: e.target.value })}
+        className="w-full border px-2 py-1 rounded"
+        required
+      >
+        <option value="" disabled>Select a service class</option>
+        <option value="economy">Economy</option>
+        <option value="business">Business</option>
+        <option value="first-class">First-Class</option>
+      </select>
+    </div>
+    <div className="mb-4">
+      <label className="block mb-2">Pickup Address</label>
+      <input
+        type="text"
+        value={editCondition?.pickup_address || ''}
+        onChange={(e) => setEditCondition({ ...editCondition!, pickup_address: e.target.value })}
+        className="w-full border px-2 py-1 rounded"
+        required
+      />
+    </div>
+    <div className="mb-4">
+      <label className="block mb-2">Dropoff Address</label>
+      <input
+        type="text"
+        value={editCondition?.dropoff_address || ''}
+        onChange={(e) => setEditCondition({ ...editCondition!, dropoff_address: e.target.value })}
+        className="w-full border px-2 py-1 rounded"
+        required
+      />
+    </div>
+    <div className="mb-4">
+      <label className="block mb-2">Count</label>
+      <input
+        type="number"
+        value={editCondition?.count || 0}
+        onChange={(e) => setEditCondition({ ...editCondition!, count: parseInt(e.target.value) })}
+        className="w-full border px-2 py-1 rounded"
+        required
+      />
+    </div>
+    <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+      {isEditing ? 'Update Condition' : 'Add Condition'}
+    </button>
+  </form>
+</Modal>
     </div>
   );
 };

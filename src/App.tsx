@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify'; // Import ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Import default styles
 import ConditionPage from './pages/ConditionSets/ConditionPage';
 import CreCondtionSetPage from './pages/CreateCondtionsSets/CreCondtionSetPage';
+import OffersPage from './pages/Offers/OfferPage';
 
 const AppContent: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const AppContent: React.FC = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/conditionSets" element={<ConditionPage />} />
           <Route path="/createconditionSets" element={<CreCondtionSetPage />} />
+          <Route path="/offers" element={<OffersPage />} />
         </Routes>
       </div>
     </div>
