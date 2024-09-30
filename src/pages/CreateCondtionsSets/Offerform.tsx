@@ -6,6 +6,10 @@ const OfferForm = () => {
   const [dropoffAddress, setDropoffAddress] = useState("");
   const [serviceClass, setServiceClass] = useState("business");
   const [count, setCount] = useState(1); // New state for count
+  const [selectedDay, setSelectedDay] = useState(""); // State for selected day
+
+  // Array of days with label and value
+  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   // State variables for handling API responses and loading
   const [responseMessage, setResponseMessage] = useState("");
@@ -21,7 +25,8 @@ const OfferForm = () => {
       pickup_address: pickupAddress,
       dropoff_address: dropoffAddress,
       service_class: serviceClass,
-      count: count // Include count in the payload
+      count: count, // Include count in the payload
+      day: selectedDay, // Include selected day in the payload
     };
 
     try {
@@ -47,7 +52,7 @@ const OfferForm = () => {
     <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Submit Offer for Acceptance</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
-        
+
         {/* Pickup Address Input */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">Pickup Location (EN):</label>
@@ -60,7 +65,7 @@ const OfferForm = () => {
             placeholder="Enter pickup location"
           />
         </div>
-        
+
         {/* Dropoff Address Input */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">Dropoff Location (EN):</label>
@@ -73,7 +78,7 @@ const OfferForm = () => {
             placeholder="Enter dropoff location"
           />
         </div>
-        
+
         {/* Service Class Dropdown */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">Service Class:</label>
@@ -102,12 +107,29 @@ const OfferForm = () => {
           />
         </div>
 
+        {/* Day Dropdown */}
+        <div>
+          <label className="block text-gray-700 font-medium mb-2">Select Day:</label>
+          <select
+            value={selectedDay}
+            onChange={(e) => setSelectedDay(e.target.value)} // Update selected day
+            required
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select a day</option>
+            {daysOfWeek.map((day) => (
+              <option key={day} value={day}>
+                {day}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Submit Button */}
         <button
           type="submit"
-          className={`w-full p-3 rounded-md transition duration-300 ${
-            isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
-          }`}
+          className={`w-full p-3 rounded-md transition duration-300 ${isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
+            }`}
           disabled={isLoading} // Disable button while loading
         >
           {isLoading ? "Processing..." : "Create Condition"}
